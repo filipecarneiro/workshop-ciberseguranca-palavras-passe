@@ -18,7 +18,7 @@ Uma sessão prática sobre palavras-passe e autenticação, com demonstração a
 
 ## Apresentação com Reveal.js + PeerJS
 
-A apresentação usa **Reveal.js** com sincronização via **PeerJS** (WebRTC P2P). Não é necessário nenhum servidor — tudo funciona com ficheiros estáticos no GitHub Pages.
+A apresentação usa **Reveal.js** com sincronização via **PeerJS** (WebRTC P2P). O dinamizador controla os slides e todos os alunos vêem o mesmo ecrã em tempo real.
 
 ### Ficheiros principais
 
@@ -41,22 +41,24 @@ A sincronização usa WebRTC (ligação direta entre browsers). Funciona de duas
 
 ### Ativar o GitHub Pages
 
+Para partilhar os slides online (funciona como fallback, mas depende do servidor cloud PeerJS):
+
 1. Vai a **Settings → Pages** no repositório
 2. Em *Source*, escolhe **Deploy from a branch** → `main` → `/ (root)`
 3. O link dos alunos fica em:
 
 ```
-https://filipecarneiro.github.io/workshop-ciberseguranca-palavras-passe/
+https://<teu-username>.github.io/workshop-ciberseguranca-palavras-passe/
 ```
 
-O dinamizador abre `apresentador/index.html` a partir de GitHub Pages ou localmente — ambos funcionam.
+O dinamizador abre `apresentador/index.html` a partir de GitHub Pages ou localmente.
 
 ### Modo local (recomendado para o workshop)
 
-O servidor cloud PeerJS pode ser instável. Para garantir que funciona no dia:
+O servidor cloud PeerJS pode ser instável. Para garantir a sincronização no dia do evento, corre um servidor local:
 
 ```bash
-npm install
+npm install   # só na primeira vez
 npm start
 ```
 
@@ -110,8 +112,9 @@ workshop-ciberseguranca-palavras-passe/
 
 1. Faz **fork** deste repositório para a tua conta GitHub
 2. Clona o repositório para o computador que vais usar no evento
-3. Segue a `apresentador/checklist.md` para preparar a sessão
-4. No dia: corre `npm start` e abre o link do apresentador mostrado no terminal
+3. Corre `npm install` para instalar as dependências
+4. Segue a `apresentador/checklist.md` para preparar a sessão
+5. No dia: corre `npm start` e abre o link do apresentador mostrado no terminal
 
 ### Para contribuir com melhorias
 
