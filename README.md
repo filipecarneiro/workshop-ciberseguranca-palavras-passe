@@ -126,6 +126,6 @@ Consulta o ficheiro [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Este trabalho está licenciado sob [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE).
 
-Podes usar, adaptar e redistribuir livremente, desde que atribuas crédito ao autor original e partilhes nas mesmas condições.
+Podes usar, adaptar e redistribuir livremente, desde que atribuas crédito ao autor original e partilhes nas mesmas condições.  
 
 **Autor original:** [Filipe Carneiro](https://github.com/filipecarneiro)
