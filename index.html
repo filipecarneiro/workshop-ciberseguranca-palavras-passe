@@ -311,11 +311,13 @@
 
   Reveal.initialize({
     hash: false,
-    controls: true,
+    controls: false,
     progress: true,
     slideNumber: true,
+    keyboard: false,
+    touch: false,
     transition: 'slide',
-    plugins: [RevealHighlight, RevealNotes, RevealMarkdown]
+    plugins: [RevealHighlight, RevealMarkdown]
   }).then(function () {
     ligar();
   });
