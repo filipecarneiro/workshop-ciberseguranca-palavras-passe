@@ -7,7 +7,7 @@ Bem-vindo a esta sessão de cibersegurança. Neste workshop vais perceber como o
 
 Os slides da apresentação avançam automaticamente no teu ecrã. Para entrar, acede a:
 
-**https://filipecarneiro.github.io/workshop-ciberseguranca-palavras-passe/alunos/**
+**https://filipecarneiro.github.io/workshop-ciberseguranca-palavras-passe/**
 
 Os slides sincronizam automaticamente com o apresentador.
 

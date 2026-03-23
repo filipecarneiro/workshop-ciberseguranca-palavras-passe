@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apresentador — Hoje Vais Ser um Hacker</title>
+  <title>Hoje Vais Ser um Hacker</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css">
@@ -52,22 +52,23 @@
     }
     .columns { display: flex; gap: 1.5em; }
     .columns > * { flex: 1; }
-    #presenter-banner {
+    #conn-status {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      background: #c0392b;
-      color: white;
-      text-align: center;
-      font-size: 0.8em;
-      font-family: monospace;
-      padding: 0.3em;
+      top: 8px; right: 12px;
       z-index: 9999;
+      font-size: 0.7em;
+      font-family: monospace;
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.5);
     }
-    #presenter-banner a { color: #fff; }
+    #conn-status.ok { color: #27ae60; }
+    #conn-status.err { color: #e74c3c; }
   </style>
 </head>
 <body>
-<div id="presenter-banner">🎙️ prima S para notas · alunos: <a href="https://filipecarneiro.github.io/workshop-ciberseguranca-palavras-passe/alunos/" target="_blank">…/alunos/</a> · ligados: <span id="conn-count">0</span></div>
+
+<div id="conn-status" class="err">● A ligar…</div>
 
 <div class="reveal">
 <div class="slides">
@@ -77,16 +78,6 @@
   <h1 style="margin-top:0.5em;">🔐 Hoje Vais Ser um Hacker</h1>
   <p class="center" style="color:#95a5a6; margin-top:1em;">Workshop de Cibersegurança · Palavras-passe e Autenticação</p>
   <p class="center muted" style="margin-top:2em;">Segue os slides em tempo real no teu computador ou telemóvel</p>
-  <aside class="notes">
-    Antes de começar: confirma que todos os alunos têm o URL aberto e que os slides avançam em sincronismo.
-    Testa avançando um slide e pedindo que confirmem que o viram mudar.
-
-    Evento: Dar Vez à Ciência
-    Data: 2026-03-27 às 10:35
-    Local: Agrupamento de Escolas de Valdevez, Arcos de Valdevez
-    Público: 18 alunos do 12º ano, Curso EAC — 3 equipas
-    Dinamizador: Filipe Carneiro, Engenheiro Informático
-  </aside>
 </section>
 
 <!-- ===================== BLOCO 1: QUEBRA-GELO ===================== -->
@@ -96,13 +87,6 @@
     <p class="center" style="font-size:1.2em; color:#e67e22; margin-top:1em;">Qual é o tipo de palavra-passe que usas?</p>
     <p class="center muted">Responde no Mentimeter →</p>
     <p class="center" style="font-size:1.5em; font-weight:bold;">menti.com</p>
-    <aside class="notes">
-      Projeta o Mentimeter no ecrã: https://www.menti.com/alh8o15iymaj
-      Pede aos alunos que acedam pelo telemóvel ou computador.
-      Pergunta anónima: "Qual é o tipo de palavra-passe que usas?"
-      Opções: Data de aniversário / Nome do animal de estimação / Sequência numérica / Nome de uma pessoa / Palavra aleatória / Outra
-      Mostra os resultados em tempo real e comenta.
-    </aside>
   </section>
   <section>
     <h2>Padrões mais comuns</h2>
@@ -114,11 +98,6 @@
       <li>Palavra aleatória <span class="bad">✗</span></li>
     </ul>
     <p style="margin-top:1em;">E usas a <span class="highlight">mesma palavra-passe</span> em mais do que um sítio?</p>
-    <aside class="notes">
-      Depois do Mentimeter, faz esta pergunta em voz alta (não no Mentimeter).
-      Normalmente a maioria responde que sim.
-      É o gancho perfeito para o bloco seguinte — password reuse é o problema central.
-    </aside>
   </section>
 </section>
 
@@ -128,10 +107,6 @@
     <h2>🔧 Bloco 2 — Como funcionam? <span class="tag">15 min</span></h2>
     <p>O servidor nunca guarda a tua palavra-passe <span class="highlight">em claro</span>.</p>
     <p style="margin-top:1em;">Quando crias uma conta, a tua palavra-passe é <strong>transformada</strong> antes de ser guardada.</p>
-    <aside class="notes">
-      Objetivo: desmistificar o que acontece "por baixo" quando fazemos início de sessão.
-      Ponto chave: o servidor não sabe a tua palavra-passe, só o hash.
-    </aside>
   </section>
   <section>
     <h2>O que é um Hash?</h2>
@@ -142,12 +117,6 @@
       <tr><td><code>password124</code></td><td><code>3f19df7c74f3f0f3b1a0e9d4dd26e91e</code></td></tr>
     </table>
     <p class="muted" style="margin-top:0.8em;">Muda uma letra → o hash muda completamente.</p>
-    <aside class="notes">
-      Mostra ao vivo no terminal (VM ou local):
-        echo -n "password123" | md5sum
-        echo -n "password124" | md5sum
-      Sublinha o "efeito avalanche" — uma mudança mínima na entrada produz um hash radicalmente diferente.
-    </aside>
   </section>
   <section>
     <h2>Fugas de Dados</h2>
@@ -161,10 +130,6 @@
       32 milhões de utilizadores · palavras-passe guardadas <span class="bad">em claro</span><br>
       A lista tornou-se o dicionário de ataque mais usado até hoje.
     </div>
-    <aside class="notes">
-      Como obtêm as bases de dados? Injeção SQL, credenciais roubadas de administradores, servidores mal configurados.
-      Não é necessário entrar em detalhe — o importante é que acontece e é mais comum do que se pensa.
-    </aside>
   </section>
   <section>
     <h2>Rainbow Tables vs. Salting</h2>
@@ -180,10 +145,6 @@
         <p class="good">✓ Inutiliza as rainbow tables</p>
       </div>
     </div>
-    <aside class="notes">
-      Público técnico: podes expandir com bcrypt e o custo computacional intencional (work factor).
-      Para manter simples: "o sal é como adicionar um ingrediente secreto diferente a cada pizza — mesmo que a receita base seja igual, o resultado é sempre diferente".
-    </aside>
   </section>
 </section>
 
@@ -193,11 +154,6 @@
     <h2>💣 Bloco 3 — Força Bruta ao Vivo <span class="tag">15 min</span></h2>
     <p>Quebrar palavras-passe fracas é <span class="highlight">trivial</span> com ferramentas gratuitas.</p>
     <pre><code class="bash">hashcat -m 0 -a 0 hashes.txt rockyou.txt</code></pre>
-    <aside class="notes">
-      Usa o hashcat na VM (ver vm/README.md) com a lista de palavras RockYou.
-      Alternativa sem VM: usa crackstation.net para colar um hash e mostrar que é quebrado instantaneamente.
-      Mostra a quebrar ao vivo: 123456, password, filipe2008.
-    </aside>
   </section>
   <section>
     <h2>Quanto tempo demora?</h2>
@@ -210,10 +166,6 @@
       <tr><td><code>cavalo-bateria-grampo-correta</code></td><td class="good">séculos</td></tr>
     </table>
     <p class="muted" style="margin-top:0.8em;">Testa em → <a href="https://www.security.org/how-secure-is-my-password/" style="color:#3498db;">howsecureismypassword.net</a></p>
-    <aside class="notes">
-      Usa filipe2008 como exemplo pessoal — cria imersão e humor pedagógico.
-      Pergunta aberta antes de revelar: "O que acham que acontece se eu usar o meu nome e o ano de nascimento?"
-    </aside>
   </section>
 </section>
 
@@ -224,11 +176,6 @@
     <p class="center" style="font-size:1.3em; margin-top:1em;">Vai a</p>
     <p class="center" style="font-size:1.8em; font-weight:bold; color:#3498db;">haveibeenpwned.com</p>
     <p class="center">e verifica o teu endereço de e-mail.</p>
-    <aside class="notes">
-      Objetivo: cada aluno descobre, em tempo real, se os seus dados já foram expostos.
-      Instrução: cada aluno acede a haveibeenpwned.com e verifica o próprio endereço de e-mail.
-      Anuncia o tempo restante aos 15 min e aos 5 min — os alunos ficam presos a explorar.
-    </aside>
   </section>
   <section>
     <h2>O que procurar</h2>
@@ -242,10 +189,6 @@
       <li>Que dados foram expostos? (palavras-passe, moradas, telefones)</li>
       <li>Ainda usas esse serviço? Mudaste a palavra-passe?</li>
     </ul>
-    <aside class="notes">
-      No separador Passwords, cada aluno verifica se alguma palavra-passe conhecida já aparece na lista.
-      Pergunta que podem analisar: quantas fugas? que serviços? que tipo de dados expostos?
-    </aside>
   </section>
   <section>
     <h2>Se estiveres comprometido</h2>
@@ -255,11 +198,6 @@
       <li>Ativar autenticação em dois passos (MFA)</li>
       <li>Alertar contactos próximos, se aplicável</li>
     </ol>
-    <aside class="notes">
-      Discussão em grupo (5 min no fim do bloco):
-      "O que fazias a seguir se descobrisses que estás comprometido?"
-      Guia para as 4 ações listadas — não deixa a discussão derivar muito.
-    </aside>
   </section>
 </section>
 
@@ -267,21 +205,12 @@
 <section>
   <section>
     <h2>🛡️ Bloco 5 — Boas Práticas <span class="tag">20 min</span></h2>
-    <aside class="notes">
-      Se estiveres adiantado, expande a discussão sobre gestores de palavras-passe.
-      Se estiveres atrasado, encurta este bloco — o desafio final não deve ser sacrificado.
-    </aside>
   </section>
   <section>
     <h2>Frases-passe</h2>
     <p>4 palavras aleatórias são <strong>mais seguras</strong> e mais fáceis de memorizar.</p>
     <p class="center" style="font-size:1.3em; color:#27ae60; margin-top:1em; font-family:monospace;">cavalo-bateria-grampo-correta</p>
     <p class="center muted">Referência: xkcd.com/936</p>
-    <aside class="notes">
-      Mostra o cartoon XKCD 936 no ecrã — https://xkcd.com/936/
-      Referência visual que explica melhor do que qualquer texto.
-      Diceware: https://diceware.dmuth.org/
-    </aside>
   </section>
   <section>
     <h2>Autenticação Multi-Fator (MFA)</h2>
@@ -292,10 +221,6 @@
       <tr><td>Chave física</td><td>YubiKey</td><td class="good">O mais seguro</td></tr>
     </table>
     <p style="margin-top:0.8em;">Mesmo que alguém descubra a tua palavra-passe, <span class="good">não consegue entrar</span>.</p>
-    <aside class="notes">
-      Se tiveres uma YubiKey, mostra-a fisicamente — desperta curiosidade.
-      Pergunta chave: "Mesmo que alguém descubra a tua palavra-passe, consegue entrar na tua conta?" Com MFA: não.
-    </aside>
   </section>
   <section>
     <h2>Gestores de Palavras-passe</h2>
@@ -307,12 +232,6 @@
     </ul>
     <p style="margin-top:1em; color:#e67e22;">É seguro confiar tudo a uma aplicação?</p>
     <p class="muted">Sim — melhor do que reutilizar <code>filipe2008</code> em 20 sítios.</p>
-    <aside class="notes">
-      Demonstra o Bitwarden: como funciona o cofre, como gera palavras-passe, porque é seguro.
-      Debate o compromisso: um gestor com palavra-passe mestra forte e MFA é MUITO mais seguro do que reutilizar.
-      Nota LastPass 2023: sofreu fuga grave precisamente porque a arquitetura era diferente do Bitwarden.
-      O cofre do Bitwarden é cifrado localmente antes de ser enviado para os servidores.
-    </aside>
   </section>
   <section>
     <h2>Passkeys — o futuro</h2>
@@ -323,11 +242,6 @@
     </ul>
     <p style="margin-top:0.8em;">Já disponível no Google, Apple e Microsoft.</p>
     <p class="muted">Semelhante ao SSH, para quem conhece.</p>
-    <aside class="notes">
-      Para público técnico: explica o protocolo FIDO2/WebAuthn.
-      Para público geral: "em vez de uma palavra secreta, o teu telemóvel prova que é ele — como a impressão digital".
-      Menção breve — não é necessário aprofundar.
-    </aside>
   </section>
 </section>
 
@@ -341,11 +255,6 @@
       <div class="step-box" style="border-color:#e67e22;"><strong>Equipa B</strong><br>hashes-equipa-B.txt<br><em class="muted">Médio</em></div>
       <div class="step-box" style="border-color:#e74c3c;"><strong>Equipa C</strong><br>hashes-equipa-C.txt<br><em class="muted">Mais difícil</em></div>
     </div>
-    <aside class="notes">
-      Distribui os ficheiros de hashes ANTES de iniciar o cronómetro.
-      3 equipas com 6 alunos cada (18 participantes total).
-      Lembra: este é o momento de maior envolvimento — não o sacrifiques se estiveres atrasado.
-    </aside>
   </section>
   <section>
     <h2>Como quebrar as hashes</h2>
@@ -359,22 +268,12 @@
       <pre style="margin:0.3em 0 0;"><code class="bash">hashcat -m 0 -a 0 hashes-equipa-X.txt rockyou.txt</code></pre>
     </div>
     <p class="muted" style="margin-top:0.8em;">Tens <strong>10 minutos</strong>. A equipa com mais palavras-passe descobertas ganha.</p>
-    <aside class="notes">
-      Inicia um cronómetro visível para todos — 10 minutos.
-      Nos últimos 5 minutos, prepara as soluções (desafio/solucoes.md).
-      Circula pelas equipas e observa as estratégias.
-    </aside>
   </section>
   <section>
     <h2>⏱️ Conta decrescente</h2>
     <p class="center muted">O dinamizador inicia o cronómetro agora.</p>
     <p class="big-number">10:00</p>
     <p class="center muted">Não partilhes respostas com outras equipas!</p>
-    <aside class="notes">
-      Usa um cronómetro externo (telemóvel, projeta no ecrã secundário, etc.)
-      Ao fim de 10 min avança para a conclusão e revela as soluções.
-      Celebra todas as equipas — o objetivo é aprender, não ganhar.
-    </aside>
   </section>
 </section>
 
@@ -388,11 +287,6 @@
       <li>Ativa a <strong>autenticação em dois passos</strong> no e-mail, banco e redes sociais</li>
       <li>Instala um <strong>gestor de palavras-passe</strong></li>
     </ol>
-    <aside class="notes">
-      Abre para perguntas. Se não houver: "O que vos surpreendeu mais nesta sessão?"
-      Perguntas frequentes — ver dinamizador/notas.md para respostas preparadas.
-      Partilha o link do repositório com os alunos e com o professor responsável.
-    </aside>
   </section>
   <section>
     <h2>Obrigado!</h2>
@@ -400,12 +294,6 @@
     <p class="center" style="font-size:1.1em; color:#3498db;">github.com/filipecarneiro/<br>workshop-ciberseguranca-palavras-passe</p>
     <p class="center" style="margin-top:1.5em; color:#e67e22; font-size:1.2em;">Perguntas?</p>
     <p class="center muted" style="margin-top:0.5em;">O que vos surpreendeu mais?</p>
-    <aside class="notes">
-      Após a sessão:
-      - Recolher feedback informal: o que correu bem, o que podia melhorar
-      - Anotar sugestões — considerar abrir uma issue no repositório
-      - Se o antivírus alertou para o hashcat, foi uma boa oportunidade pedagógica sobre a diferença entre ferramenta e intenção.
-    </aside>
   </section>
 </section>
 
@@ -419,58 +307,56 @@
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
   var PEER_ID = 'wshack-presenter';
-  var connections = [];
-
-  function updateConnCount() {
-    document.getElementById('conn-count').textContent = connections.length;
-  }
-
-  function broadcastState() {
-    var state = Reveal.getState();
-    for (var i = connections.length - 1; i >= 0; i--) {
-      try { connections[i].send({ state: state }); }
-      catch (e) { connections.splice(i, 1); updateConnCount(); }
-    }
-  }
+  var status = document.getElementById('conn-status');
 
   Reveal.initialize({
-    hash: true,
+    hash: false,
     controls: true,
     progress: true,
     slideNumber: true,
     transition: 'slide',
     plugins: [RevealHighlight, RevealNotes, RevealMarkdown]
   }).then(function () {
-    var peer = new Peer(PEER_ID);
+    ligar();
+  });
+
+  function ligar() {
+    var peer = new Peer();
 
     peer.on('open', function () {
-      console.log('PeerJS: a escutar como', PEER_ID);
-    });
+      var conn = peer.connect(PEER_ID);
 
-    peer.on('connection', function (conn) {
       conn.on('open', function () {
-        connections.push(conn);
-        updateConnCount();
-        conn.send({ state: Reveal.getState() });
+        status.textContent = '● Ligado';
+        status.className = 'ok';
       });
+
+      conn.on('data', function (data) {
+        if (data && data.state) Reveal.setState(data.state);
+      });
+
       conn.on('close', function () {
-        connections = connections.filter(function (c) { return c !== conn; });
-        updateConnCount();
+        status.textContent = '● A reconectar…';
+        status.className = 'err';
+        try { peer.destroy(); } catch (e) {}
+        setTimeout(ligar, 3000);
       });
+
       conn.on('error', function () {
-        connections = connections.filter(function (c) { return c !== conn; });
-        updateConnCount();
+        status.textContent = '● A reconectar…';
+        status.className = 'err';
+        try { peer.destroy(); } catch (e) {}
+        setTimeout(ligar, 3000);
       });
     });
 
-    peer.on('error', function (err) {
-      console.warn('PeerJS erro:', err);
+    peer.on('error', function () {
+      status.textContent = '● A reconectar…';
+      status.className = 'err';
+      try { peer.destroy(); } catch (e) {}
+      setTimeout(ligar, 3000);
     });
-
-    Reveal.on('slidechanged', broadcastState);
-    Reveal.on('fragmentshown', broadcastState);
-    Reveal.on('fragmenthidden', broadcastState);
-  });
+  }
 </script>
 </body>
 </html>

@@ -24,14 +24,14 @@ A apresentação usa **Reveal.js** com sincronização via **PeerJS** (WebRTC P2
 
 | Ficheiro | Quem abre | Para quê |
 |---|---|---|
-| `index.html` | **Dinamizador** | Slides com controlo + notas de apresentador (prima **S**) |
-| `alunos/index.html` | **Alunos** — link público | Slides sincronizados com ecrã de entrada |
+| `index.html` | **Alunos** — link público | Slides sincronizados automaticamente |
+| `apresentador/index.html` | **Dinamizador** | Slides com controlo + notas de apresentador (prima **S**) |
 
 ### Fluxo de utilização
 
 ```
-1. O dinamizador abre index.html → a apresentação inicia e fica à espera de ligações
-2. Os alunos acedem a alunos/index.html → os slides sincronizam automaticamente
+1. O dinamizador abre apresentador/index.html → a apresentação inicia e fica à espera de ligações
+2. Os alunos acedem à raiz (index.html) → os slides sincronizam automaticamente
 ```
 
 A sincronização usa WebRTC (ligação direta entre o computador do apresentador e os dos alunos). Não é necessário instalar nada nem correr nenhum servidor.
@@ -43,10 +43,10 @@ A sincronização usa WebRTC (ligação direta entre o computador do apresentado
 3. O link dos alunos fica em:
 
 ```
-https://filipecarneiro.github.io/workshop-ciberseguranca-palavras-passe/alunos/
+https://filipecarneiro.github.io/workshop-ciberseguranca-palavras-passe/
 ```
 
-O dinamizador pode abrir o `index.html` diretamente a partir de GitHub Pages ou localmente — ambos funcionam.
+O dinamizador abre `apresentador/index.html` a partir de GitHub Pages ou localmente — ambos funcionam.
 
 ---
 
@@ -59,15 +59,15 @@ workshop-ciberseguranca-palavras-passe/
 ├── LICENSE                      # Licença CC BY-SA 4.0
 ├── CONTRIBUTING.md              # Como contribuir
 │
-├── index.html                   # Slides do dinamizador (Reveal.js + PeerJS master + notas)
+├── index.html                   # Slides dos alunos (Reveal.js + PeerJS follower)
 │
-├── dinamizador/
+├── apresentador/
+│   ├── index.html               # Slides do dinamizador (Reveal.js + PeerJS master + notas)
 │   ├── guia.md                  # Script completo da sessão, bloco a bloco
 │   ├── checklist.md             # Checklist de preparação e de sessão
 │   └── notas.md                 # Dicas, perguntas frequentes, gestão do tempo
 │
 ├── alunos/
-│   ├── index.html               # Slides dos alunos (Reveal.js + PeerJS follower)
 │   └── guia.md                  # Guia de referência passo a passo para os alunos
 │
 ├── desafio/
@@ -92,8 +92,8 @@ workshop-ciberseguranca-palavras-passe/
 
 1. Faz **fork** deste repositório para a tua conta GitHub
 2. Clona o repositório para o computador que vais usar no evento
-3. Segue a `dinamizador/checklist.md` para preparar a sessão
-4. No dia: corre `cd multiplex && npm start` e abre o `presenter.html` no browser
+3. Segue a `apresentador/checklist.md` para preparar a sessão
+4. No dia: abre o `apresentador/index.html` no browser
 
 ### Para contribuir com melhorias
 
