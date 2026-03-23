@@ -1,14 +1,6 @@
----
-title: "Guia do Dinamizador"
----
+# Guia do Dinamizador
 
-Este documento é o script completo da sessão, bloco a bloco. Lê-o com antecedência e familiariza-te com cada transição.
-
-**Evento:** {{ site.data.evento.evento.nome }}  
-**Data:** {{ site.data.evento.evento.data }} às {{ site.data.evento.evento.hora_inicio }}
-**Duração:** {{ site.data.evento.evento.duracao_minutos }} min  
-**Local:** {{ site.data.evento.organizacao.nome }}, {{ site.data.evento.organizacao.localidade }}  
-**Público:** {{ site.data.evento.publico.descricao }} ({{ site.data.evento.publico.num_participantes }} participantes)
+Este documento é o script completo da sessão, bloco a bloco. As notas de apresentador estão incorporadas nos slides — prime **S** no `presenter.html` para as ver. Lê este guia com antecedência e familiariza-te com cada transição.
 
 ---
 
@@ -30,7 +22,7 @@ Este documento é o script completo da sessão, bloco a bloco. Lê-o com anteced
 
 **Objetivo:** criar empatia e contexto imediato sem expor ninguém.
 
-Antes de começar, projeta o Mentimeter ([{{ site.data.evento.ferramentas.mentimeter_url }}]({{ site.data.evento.ferramentas.mentimeter_url }})) no ecrã e pede aos alunos que acedam pelo telemóvel ou computador.
+Antes de começar, projeta o Mentimeter no ecrã (URL na tua conta Mentimeter) e pede aos alunos que acedam pelo telemóvel ou computador.
 
 Pergunta anónima: *"Qual é o tipo de palavra-passe que usas?"*
 - Data de aniversário
@@ -165,7 +157,7 @@ O futuro da autenticação — sem palavra-passe. Já disponível no Google, App
 
 **Objetivo:** os alunos experienciam o papel do atacante, de forma controlada e pedagógica.
 
-Divide os participantes em {{ site.data.evento.publico.num_equipas }} equipas.
+Divide os participantes em equipas (recomendado: 3 equipas de 5–6 elementos).
 
 Distribui a cada equipa o ficheiro de hashes correspondente (ver pasta `desafio/`):
 - Equipa A: `hashes-equipa-A.txt` (palavras-passe mais fáceis)

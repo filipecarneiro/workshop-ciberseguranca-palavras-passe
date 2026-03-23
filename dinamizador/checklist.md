@@ -1,17 +1,13 @@
----
-title: "Checklist do Dinamizador"
----
-
----
+# Checklist do Dinamizador
 
 ## Com 1 semana de antecedência
 
-- [ ] Ler o `guia.md` de início ao fim
+- [ ] Ler o `guia.md` de início ao fim e abrir o `presenter.html` para rever os slides com notas
 - [ ] Configurar a VM (seguir `vm/README.md`) e testar o `hashcat` com a lista RockYou
 - [ ] Criar ou verificar a conta no [Mentimeter](https://www.mentimeter.com) e preparar a pergunta do quebra-gelo
-- [ ] Verificar se o URL do Mentimeter em `evento.yml` está correto e acessível
-- [ ] Confirmar com a escola o número de participantes (previsto: {{ site.data.evento.publico.num_participantes }}) e ajustar os ficheiros de hashes se necessário
+- [ ] Confirmar com a escola o número de participantes e ajustar os ficheiros de hashes se necessário
 - [ ] Testar o acesso às ferramentas online a partir de uma rede semelhante à da escola (algumas escolas bloqueiam certos domínios)
+- [ ] **Configurar o Multiplex:** obtém um token em `https://reveal-multiplex.glitch.me/token` e substitui `REPLACE_WITH_SOCKET_ID` e `REPLACE_WITH_SECRET` em `presenter.html` e `index.html`
 
 ---
 
@@ -22,7 +18,7 @@ title: "Checklist do Dinamizador"
 - [ ] Abrir o Mentimeter e confirmar que a apresentação está ativa
 - [ ] Preparar os ficheiros de hashes para impressão ou partilha digital (um por equipa)
 - [ ] Verificar que tens os links anotados:
-  - Mentimeter: [{{ site.data.evento.ferramentas.mentimeter_url }}]({{ site.data.evento.ferramentas.mentimeter_url }})
+  - URL do teu Mentimeter
   - [haveibeenpwned.com](https://haveibeenpwned.com)
   - [crackstation.net](https://crackstation.net)
   - [howsecureismypassword.net](https://howsecureismypassword.net)
@@ -34,8 +30,8 @@ title: "Checklist do Dinamizador"
 
 - [ ] Chegar ao espaço e verificar a ligação à internet
 - [ ] Testar a projeção — confirmar que o ecrã é visível de todos os lugares
+- [ ] Abrir o `presenter.html` no computador do dinamizador e confirmar que o Multiplex está a funcionar (avança um slide e verifica que o `index.html` acompanha)
 - [ ] Abrir o Mentimeter no computador do dinamizador (ecrã do apresentador)
-- [ ] Abrir o URL do Mentimeter no ecrã projetado (ecrã dos participantes)
 - [ ] Arrancar a VM e ter o terminal pronto
 - [ ] Testar [crackstation.net](https://crackstation.net) — colar um hash e confirmar que responde
 - [ ] Confirmar que os alunos conseguem aceder à internet nos seus computadores
@@ -55,6 +51,6 @@ title: "Checklist do Dinamizador"
 
 ## No final
 
-- [ ] Partilhar o link do repositório com os alunos (e com o professor responsável): [github.com/{{ site.data.evento.dinamizador.github }}/workshop-ciberseguranca-palavras-passe](https://github.com/{{ site.data.evento.dinamizador.github }}/workshop-ciberseguranca-palavras-passe)
+- [ ] Partilhar o link do repositório com os alunos (e com o professor responsável): [github.com/filipecarneiro/workshop-ciberseguranca-palavras-passe](https://github.com/filipecarneiro/workshop-ciberseguranca-palavras-passe)
 - [ ] Recolher feedback informal: o que correu bem, o que podia melhorar
 - [ ] Anotar sugestões de melhoria para o repositório — considera abrir uma issue ou pull request
