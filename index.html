@@ -291,34 +291,36 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
 <!--
-  MULTIPLEX SETUP
-  ---------------
-  1. Get a token from https://reveal-multiplex.glitch.me/token
-  2. The response gives you:  { "secret": "...", "socketId": "..." }
-  3. Paste socketId below in BOTH index.html and presenter.html.
-  4. Paste secret ONLY in presenter.html.
-  5. Replace the multiplex server URL if you self-host.
+  Os slides sincronizam automaticamente via socket.io.
+  O socketId é lido do parâmetro URL ?id=... gerado pelo presenter.html.
+  Não é necessário editar este ficheiro manualmente.
 -->
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 <script>
-  const MULTIPLEX_SERVER = 'https://reveal-multiplex.glitch.me';
-  const SOCKET_ID = 'REPLACE_WITH_SOCKET_ID'; // same in presenter.html
+  const params    = new URLSearchParams(window.location.search);
+  const SOCKET_ID = params.get('id');
+  const SRV       = params.get('srv') || window.location.origin;
 
   Reveal.initialize({
     hash: true,
-    controls: false,       // followers don't need controls
+    controls: false,
     progress: true,
     slideNumber: true,
     transition: 'slide',
-    plugins: [ RevealHighlight, RevealNotes, RevealMarkdown ],
-    multiplex: {
-      url: MULTIPLEX_SERVER,
-      id: SOCKET_ID,
-      secret: null          // null = follower (student) view
-    },
-    dependencies: [
-      { src: MULTIPLEX_SERVER + '/socket.io/socket.io.js', async: true },
-      { src: 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/multiplex/client.js', async: true }
-    ]
+    plugins: [ RevealHighlight, RevealNotes, RevealMarkdown ]
+  }).then(() => {
+    if (SOCKET_ID) {
+      const socket = io(SRV);
+      socket.on(SOCKET_ID, data => {
+        if (data && data.state) Reveal.setState(data.state);
+      });
+    } else {
+      document.querySelector('.reveal').insertAdjacentHTML('afterbegin',
+        '<div style="position:fixed;top:0;left:0;right:0;background:#c0392b;color:#fff;' +
+        'text-align:center;padding:0.5em;font-size:0.85em;z-index:9999;">' +
+        '⚠️ Aguarda o link completo do apresentador — os slides ainda não estão sincronizados.</div>'
+      );
+    }
   });
 </script>
 </body>

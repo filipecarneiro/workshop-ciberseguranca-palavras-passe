@@ -7,7 +7,7 @@
 - [ ] Criar ou verificar a conta no [Mentimeter](https://www.mentimeter.com) e preparar a pergunta do quebra-gelo
 - [ ] Confirmar com a escola o número de participantes e ajustar os ficheiros de hashes se necessário
 - [ ] Testar o acesso às ferramentas online a partir de uma rede semelhante à da escola (algumas escolas bloqueiam certos domínios)
-- [ ] **Configurar o Multiplex:** obtém um token em `https://reveal-multiplex.glitch.me/token` e substitui `REPLACE_WITH_SOCKET_ID` e `REPLACE_WITH_SECRET` em `presenter.html` e `index.html`
+- [ ] **Configurar o servidor Multiplex:** na pasta do repositório, correr `cd multiplex && npm install` (só na primeira vez) e testar com `npm start`
 
 ---
 
@@ -30,7 +30,7 @@
 
 - [ ] Chegar ao espaço e verificar a ligação à internet
 - [ ] Testar a projeção — confirmar que o ecrã é visível de todos os lugares
-- [ ] Abrir o `presenter.html` no computador do dinamizador e confirmar que o Multiplex está a funcionar (avança um slide e verifica que o `index.html` acompanha)
+- [ ] Abrir o `presenter.html` no computador do dinamizador (via `http://localhost:1948/presenter.html`) e confirmar que o óvulo Multiplex aparece com o link dos alunos
 - [ ] Abrir o Mentimeter no computador do dinamizador (ecrã do apresentador)
 - [ ] Arrancar a VM e ter o terminal pronto
 - [ ] Testar [crackstation.net](https://crackstation.net) — colar um hash e confirmar que responde

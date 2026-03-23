@@ -33,17 +33,30 @@ A apresentação usa **Reveal.js com o plugin Multiplex**: o dinamizador control
 Dinamizador → presenter.html → avança slide → todos os alunos veem o slide avançar em index.html
 ```
 
-### Configuração do Multiplex (fazer uma vez por evento)
+### Configurar e iniciar o servidor (fazer uma vez por sesso)
 
-1. Abre `https://reveal-multiplex.glitch.me/token` no browser
-2. Receberes uma resposta JSON com `secret` e `socketId`
-3. Em **`presenter.html`**: substitui `REPLACE_WITH_SOCKET_ID` e `REPLACE_WITH_SECRET`
-4. Em **`index.html`**: substitui apenas `REPLACE_WITH_SOCKET_ID` (o mesmo valor)
-5. Faz commit + push — os alunos acedem ao `index.html` via GitHub Pages
+O servidor relay corre localmente no computador do apresentador. Os alunos ligam-se via rede local (Wi-Fi da escola).
 
-> O `secret` nunca deve estar em `index.html` — apenas no `presenter.html`, que só o dinamizador abre.
+```powershell
+cd multiplex
+npm install   # só na primeira vez
+npm start
+```
 
-### Ativar o GitHub Pages
+O terminal mostra dois URLs:
+
+```
+Apresentador:  http://localhost:1948/presenter.html
+Alunos:        http://192.168.x.x:1948/
+```
+
+- O `presenter.html` abre no computador do apresentador e mostra automaticamente o link a partilhar com os alunos.
+- Os alunos abrem o URL da rede local no browser — os slides avançam automaticamente.
+- O `socketId` e o `secret` são gerados automaticamente a cada sessão (não é necessário editar os ficheiros HTML).
+
+> O GitHub Pages continua válido para partilhar o guia e os manuais, mas a sincronização de slides exige o servidor local.
+
+### Ativar o GitHub Pages (opcional — para o guia dos alunos)
 
 1. Vai a **Settings → Pages** no repositório
 2. Em *Source*, escolhe **Deploy from a branch** → `main` → `/ (root)`
@@ -62,6 +75,10 @@ workshop-ciberseguranca-palavras-passe/
 │
 ├── index.html                   # Slides dos alunos (Reveal.js — Multiplex follower)
 ├── presenter.html               # Slides do dinamizador (Reveal.js — Multiplex master + notas)
+│
+├── multiplex/
+│   ├── server.js                # Servidor relay (Node.js + socket.io)
+│   └── package.json             # Dependências do servidor
 │
 ├── dinamizador/
 │   ├── guia.md                  # Script completo da sessão, bloco a bloco
@@ -92,10 +109,9 @@ workshop-ciberseguranca-palavras-passe/
 ### Para um novo evento
 
 1. Faz **fork** deste repositório para a tua conta GitHub
-2. Configura o Multiplex (ver instruções acima) e faz push
-3. Ativa o **GitHub Pages** nas definições do repositório
-4. Segue a `dinamizador/checklist.md` para preparar a sessão
-5. No dia: abre `presenter.html` no teu computador e partilha o URL do `index.html` com os alunos
+2. Clona o repositório para o computador que vais usar no evento
+3. Segue a `dinamizador/checklist.md` para preparar a sessão
+4. No dia: corre `cd multiplex && npm start` e abre o `presenter.html` no browser
 
 ### Para contribuir com melhorias
 

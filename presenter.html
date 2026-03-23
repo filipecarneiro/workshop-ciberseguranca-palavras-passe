@@ -68,6 +68,36 @@
 </head>
 <body>
 <div id="presenter-banner">🎙️ VISTA DO APRESENTADOR — os alunos seguem em index.html · prima S para notas do apresentador</div>
+
+<!-- Overlay de configuração Multiplex -->
+<div id="mp-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.92);z-index:10000;align-items:center;justify-content:center;">
+  <div id="mp-ok" style="display:none;text-align:center;max-width:600px;padding:2em;color:#fff;font-family:sans-serif;">
+    <div style="font-size:2.5em;">✅</div>
+    <h2 style="color:#27ae60;margin:0.3em 0;">Multiplex ativo</h2>
+    <p>Copia e partilha este link com os alunos:</p>
+    <div id="mp-url" style="background:#111;border:2px solid #27ae60;border-radius:8px;
+      padding:0.8em 1em;margin:1em 0;font-family:monospace;font-size:0.95em;
+      word-break:break-all;cursor:pointer;" title="Clica para copiar"></div>
+    <p style="color:#95a5a6;font-size:0.8em;">Os slides dos alunos avançam automaticamente quando navegares.</p>
+    <button onclick="copiarUrl()" style="background:#2980b9;color:#fff;border:none;
+      padding:0.5em 1.4em;font-size:0.9em;border-radius:4px;cursor:pointer;margin-right:0.5em;">📋 Copiar link</button>
+    <button onclick="document.getElementById('mp-overlay').style.display='none'" style="background:#27ae60;color:#fff;
+      border:none;padding:0.5em 1.4em;font-size:0.9em;border-radius:4px;cursor:pointer;">Iniciar →</button>
+  </div>
+  <div id="mp-err" style="display:none;text-align:center;max-width:600px;padding:2em;color:#fff;font-family:sans-serif;">
+    <div style="font-size:2.5em;">⚠️</div>
+    <h2 style="color:#e74c3c;margin:0.3em 0;">Servidor não encontrado</h2>
+    <p>Para sincronizar os slides, corre numa PowerShell:</p>
+    <pre style="background:#111;padding:1em;border-radius:4px;text-align:left;font-size:0.9em;margin:1em 0;">cd multiplex
+npm install
+npm start</pre>
+    <p style="color:#95a5a6;font-size:0.8em;">Depois recarrega esta página (F5).</p>
+    <button onclick="document.getElementById('mp-overlay').style.display='none'"
+      style="background:#555;color:#fff;border:none;padding:0.5em 1.4em;
+      font-size:0.9em;border-radius:4px;cursor:pointer;">Continuar sem sincronização</button>
+  </div>
+</div>
 <div class="reveal">
 <div class="slides">
 
@@ -416,36 +446,76 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
 <!--
-  MULTIPLEX SETUP
-  ---------------
-  1. Obtém um token em: https://reveal-multiplex.glitch.me/token
-  2. A resposta dá-te: { "secret": "...", "socketId": "..." }
-  3. Cola o socketId em AMBOS os ficheiros index.html e presenter.html.
-  4. Cola o secret APENAS aqui em presenter.html.
-  5. Substitui o URL do servidor se fizeres self-host.
+  Multiplex auto-configurado via servidor local (multiplex/server.js).
+  Não é necessário editar este ficheiro.
 -->
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 <script>
-  const MULTIPLEX_SERVER = 'https://reveal-multiplex.glitch.me';
-  const SOCKET_ID = 'REPLACE_WITH_SOCKET_ID'; // mesmo valor em index.html
-  const SECRET    = 'REPLACE_WITH_SECRET';     // só aqui, nunca em index.html!
-
+  // Inicializa Reveal.js imediatamente (slides visíveis sem esperar pelo servidor)
   Reveal.initialize({
     hash: true,
     controls: true,
     progress: true,
     slideNumber: true,
     transition: 'slide',
-    plugins: [ RevealHighlight, RevealNotes, RevealMarkdown ],
-    multiplex: {
-      url: MULTIPLEX_SERVER,
-      id: SOCKET_ID,
-      secret: SECRET        // secret = presenter (master) view
-    },
-    dependencies: [
-      { src: MULTIPLEX_SERVER + '/socket.io/socket.io.js', async: true },
-      { src: 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/multiplex/master.js', async: true }
-    ]
-  });
+    plugins: [ RevealHighlight, RevealNotes, RevealMarkdown ]
+  }).then(iniciarMultiplex);
+
+  function copiarUrl() {
+    const url = document.getElementById('mp-url').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = event.target;
+      btn.textContent = '✓ Copiado!';
+      setTimeout(() => btn.textContent = '📋 Copiar link', 2000);
+    });
+  }
+
+  async function iniciarMultiplex() {
+    const overlay = document.getElementById('mp-overlay');
+    overlay.style.display = 'flex';
+
+    let socketId = sessionStorage.getItem('mp_socketId');
+    let secret   = sessionStorage.getItem('mp_secret');
+
+    if (!socketId || !secret) {
+      try {
+        const resp = await fetch('/token');
+        if (!resp.ok) throw new Error('sem servidor');
+        const d  = await resp.json();
+        socketId = d.socketId;
+        secret   = d.secret;
+        sessionStorage.setItem('mp_socketId', socketId);
+        sessionStorage.setItem('mp_secret',   secret);
+      } catch(e) {
+        document.getElementById('mp-err').style.display = 'block';
+        return;
+      }
+    }
+
+    // Obter IP local para o URL dos alunos
+    let origin = window.location.origin;
+    try {
+      const info = await fetch('/info');
+      if (info.ok) {
+        const d = await info.json();
+        origin = 'http://' + d.localIp + ':' + d.port;
+      }
+    } catch(e) { /* usa window.location.origin */ }
+
+    const studentUrl = origin + '/?id=' + socketId;
+    const urlBox = document.getElementById('mp-url');
+    urlBox.textContent = studentUrl;
+    urlBox.onclick = copiarUrl;
+    document.getElementById('mp-ok').style.display = 'block';
+
+    // Relay de eventos para os alunos (Multiplex master)
+    const socket = io(window.location.origin);
+    const relay  = () => socket.emit('multiplex-statechanged', {
+      socketId, secret, state: Reveal.getState()
+    });
+    ['slidechanged','fragmentshown','fragmenthidden',
+     'overviewshown','overviewhidden','paused','resumed'].forEach(e => Reveal.on(e, relay));
+  }
 </script>
 </body>
 </html>
