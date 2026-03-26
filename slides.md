@@ -86,7 +86,7 @@ style: |
 
 Responde no Mentimeter
 
-## menti.com
+## [menti.com](https://www.menti.com)
 
 Código: `1155 3356`
 
@@ -322,14 +322,16 @@ URL falsa:   https://www.banc0.pt/login
 Podes fazer isso através do terminal:
 
 1 - Gerar hash de uma password:
-```bash
-echo -n "password123" | sha256sum
+```powershell
+$h = [Security.Cryptography.SHA256]::Create()
+-join ($h.ComputeHash([Text.Encoding]::UTF8.GetBytes("password123")) | % { $_.ToString("x2") })
 # → ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f
 ```
 2 - Verificar se uma password corresponde a um hash:
-```bash
-echo -n "password123" | sha256sum | grep ef92b778...
-# → Devolve a linha completa do hash, se coincidir!
+```powershell
+$hash = -join ($h.ComputeHash([Text.Encoding]::UTF8.GetBytes("password123")) | % { $_.ToString("x2") })
+if ($hash -match "ef92b778") { "Corresponde!" }
+# → Corresponde!
 ```
 
 > Não o vamos fazer agora em aula mas podes experimentar em casa.
