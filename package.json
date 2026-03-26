@@ -1,0 +1,13 @@
+{
+  "name": "workshop",
+  "version": "1.0.0",
+  "scripts": {
+    "convert:html": "marp slides.md --html --output slides.html",
+    "convert:pdf": "marp slides.md --pdf --allow-local-files --output slides.pdf",
+    "convert:pptx": "marp slides.md --pptx --allow-local-files --output slides.pptx",
+    "convert": "npm run convert:html && npm run convert:pdf && npm run convert:pptx"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "latest"
+  }
+}
