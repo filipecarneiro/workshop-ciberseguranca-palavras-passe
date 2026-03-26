@@ -16,9 +16,9 @@
     }
     .reveal .slides section { text-align: left; }
     .reveal h1, .reveal h2 { text-align: center; }
-    .reveal h1 { color: var(--accent); font-size: 1.8em; }
-    .reveal h2 { color: #3498db; border-bottom: 2px solid #3498db; padding-bottom: 0.2em; margin-bottom: 0.6em; }
-    .reveal h3 { color: #e67e22; }
+    .reveal h1 { color: var(--accent); font-size: 1.5em; }
+    .reveal h2 { color: #3498db; border-bottom: 2px solid #3498db; padding-bottom: 0.15em; margin-bottom: 0.4em; font-size: 1.4em; }
+    .reveal h3 { color: #e67e22; font-size: 0.95em; }
     .reveal .highlight { color: var(--accent); font-weight: bold; }
     .reveal .good { color: var(--accent2); }
     .reveal .bad { color: var(--accent); }
@@ -27,7 +27,7 @@
     .reveal table th { background: #2c3e50; color: white; }
     .reveal table td, .reveal table th { padding: 0.4em 0.6em; border: 1px solid #444; }
     .reveal ul { margin-left: 1em; }
-    .reveal li { margin-bottom: 0.3em; }
+    .reveal li { margin-bottom: 0.2em; }
     .reveal code { font-size: 0.85em; }
     .reveal pre code { font-size: 0.8em; max-height: 400px; }
     .big-number { font-size: 3em; font-weight: bold; color: var(--accent); text-align: center; display: block; }
@@ -92,11 +92,12 @@
 <!-- ===================== BLOCO 1: QUEBRA-GELO ===================== -->
 <section>
   <section>
-    <h2>🎯 Bloco 1 — Quebra-gelo <span class="tag">10 min</span></h2>
+    <h2>🎯 Bloco 1 — Quebra-gelo</h2>
     <p class="center" style="font-size:1.2em; color:#e67e22; margin-top:1em;">Qual é o tipo de palavra-passe que usas?</p>
     <p class="center muted">Responde no Mentimeter →</p>
     <p class="center" style="font-size:1.5em; font-weight:bold;"><a href="https://www.mentimeter.com/app/presentation/al8vziem9pg96jgyhw3u82vtmar5mftd" target="_blank" style="color:#e67e22;">menti.com</a></p>
     <aside class="notes">
+      ⏱️ Duração: 10 min
       Projeta o Mentimeter no ecrã: https://www.menti.com/alh8o15iymaj
       Pede aos alunos que acedam pelo telemóvel ou computador.
       Pergunta anónima: "Qual é o tipo de palavra-passe que usas?"
@@ -133,10 +134,11 @@
 <!-- ===================== BLOCO 2: COMO FUNCIONAM ===================== -->
 <section>
   <section>
-    <h2>🔧 Bloco 2 — Como funcionam? <span class="tag">15 min</span></h2>
+    <h2>🔧 Bloco 2 — Como funcionam?</h2>
     <p>O servidor nunca guarda a tua palavra-passe <span class="highlight">em claro</span>.</p>
     <p style="margin-top:1em;">Quando crias uma conta, a tua palavra-passe é <strong>transformada</strong> antes de ser guardada.</p>
     <aside class="notes">
+      ⏱️ Duração: 15 min
       Objetivo: desmistificar o que acontece "por baixo" quando fazemos início de sessão.
       Ponto chave: o servidor não sabe a tua palavra-passe, só o hash.
     </aside>
@@ -198,10 +200,11 @@
 <!-- ===================== BLOCO 3: DEMONSTRAÇÃO ===================== -->
 <section>
   <section>
-    <h2>💣 Bloco 3 — Força Bruta ao Vivo <span class="tag">15 min</span></h2>
+    <h2>💣 Bloco 3 — Força Bruta ao Vivo</h2>
     <p>Quebrar palavras-passe fracas é <span class="highlight">trivial</span> com ferramentas gratuitas.</p>
     <pre><code class="bash">hashcat -m 0 -a 0 hashes.txt rockyou.txt</code></pre>
     <aside class="notes">
+      ⏱️ Duração: 15 min
       Usa o hashcat na VM (ver vm/README.md) com a lista de palavras RockYou.
       Alternativa sem VM: usa crackstation.net para colar um hash e mostrar que é quebrado instantaneamente.
       Mostra a quebrar ao vivo: 123456, password, filipe2008.
@@ -228,11 +231,12 @@
 <!-- ===================== BLOCO 4: HAVEIBEENPWNED ===================== -->
 <section>
   <section>
-    <h2>🔍 Bloco 4 — Já foste hackeado? <span class="tag">20 min</span></h2>
+    <h2>🔍 Bloco 4 — Já foste hackeado?</h2>
     <p class="center" style="font-size:1.3em; margin-top:1em;">Vai a</p>
     <p class="center" style="font-size:1.8em; font-weight:bold; color:#3498db;"><a href="https://haveibeenpwned.com" target="_blank" style="color:#3498db;">haveibeenpwned.com</a></p>
     <p class="center">e verifica o teu endereço de e-mail.</p>
     <aside class="notes">
+      ⏱️ Duração: 20 min
       Objetivo: cada aluno descobre, em tempo real, se os seus dados já foram expostos.
       Instrução: cada aluno acede a haveibeenpwned.com e verifica o próprio endereço de e-mail.
       Anuncia o tempo restante aos 15 min e aos 5 min — os alunos ficam presos a explorar.
@@ -274,8 +278,9 @@
 <!-- ===================== BLOCO 5: BOAS PRÁTICAS ===================== -->
 <section>
   <section>
-    <h2>🛡️ Bloco 5 — Boas Práticas <span class="tag">20 min</span></h2>
+    <h2>🛡️ Bloco 5 — Boas Práticas</h2>
     <aside class="notes">
+      ⏱️ Duração: 20 min
       Se estiveres adiantado, expande a discussão sobre gestores de palavras-passe.
       Se estiveres atrasado, encurta este bloco — o desafio final não deve ser sacrificado.
     </aside>
@@ -342,7 +347,7 @@
 <!-- ===================== BLOCO 6: DESAFIO ===================== -->
 <section>
   <section>
-    <h2>⚔️ Bloco 6 — Mini-desafio Final <span class="tag">15 min</span></h2>
+    <h2>⚔️ Bloco 6 — Mini-desafio Final</h2>
     <p>Experimenta o papel do <span class="highlight">atacante</span> — de forma controlada e pedagógica.</p>
     <div class="columns" style="margin-top:1em;">
       <div class="step-box"><strong>Equipa A</strong><br>hashes-equipa-A.txt<br><em class="muted">Fácil</em></div>
@@ -350,6 +355,7 @@
       <div class="step-box" style="border-color:#e74c3c;"><strong>Equipa C</strong><br>hashes-equipa-C.txt<br><em class="muted">Mais difícil</em></div>
     </div>
     <aside class="notes">
+      ⏱️ Duração: 15 min
       Distribui os ficheiros de hashes ANTES de iniciar o cronómetro.
       3 equipas com 6 alunos cada (18 participantes total).
       Lembra: este é o momento de maior envolvimento — não o sacrifiques se estiveres atrasado.
@@ -389,7 +395,7 @@
 <!-- ===================== BLOCO 7: CONCLUSÃO ===================== -->
 <section>
   <section>
-    <h2>✅ Bloco 7 — Conclusão <span class="tag">5 min</span></h2>
+    <h2>✅ Bloco 7 — Conclusão</h2>
     <h3 style="text-align:center; margin-top:1em;">3 coisas para fazer <em>hoje</em></h3>
     <ol>
       <li>Usa uma <strong>frase-passe diferente</strong> em cada serviço importante</li>
@@ -397,6 +403,7 @@
       <li>Instala um <strong>gestor de palavras-passe</strong></li>
     </ol>
     <aside class="notes">
+      ⏱️ Duração: 5 min
       Abre para perguntas. Se não houver: "O que vos surpreendeu mais nesta sessão?"
       Perguntas frequentes — ver apresentador/notas.md para respostas preparadas.
       Partilha o link do repositório com os alunos e com o professor responsável.
